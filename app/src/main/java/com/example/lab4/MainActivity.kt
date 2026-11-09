@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lab4.ui.theme.Lab4Theme
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +61,12 @@ fun TipCalculator(modifier: Modifier = Modifier) {
         dishes <= 10 -> 7
         else -> 10
     }
+
+    val amount = orderAmount.replace(',', '.').toDoubleOrNull() ?: 0.0
+
+    val discountAmount = amount * discount / 100.0
+    val tipAmount = amount * tipPercent / 100.0
+    val total = amount - discountAmount + tipAmount
 
     Column(
         modifier = modifier
@@ -181,5 +188,32 @@ fun TipCalculator(modifier: Modifier = Modifier) {
                 }
             }
         }
+
+        Spacer(modifier = Modifier.height(28.dp))
+
+        Text(
+            text = "Размер скидки: ${
+                String.format(Locale.getDefault(), "%.2f", discountAmount)
+            }",
+            fontSize = 16.sp
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Чаевые: ${
+                String.format(Locale.getDefault(), "%.2f", tipAmount)
+            }",
+            fontSize = 16.sp
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "Итого к оплате: ${
+                String.format(Locale.getDefault(), "%.2f", total)
+            }",
+            fontSize = 20.sp
+        )
     }
 }
