@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
@@ -23,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.lab4.ui.theme.Lab4Theme
 
 class MainActivity : ComponentActivity() {
@@ -147,8 +149,37 @@ fun TipCalculator(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text("0")
-            Text("25")
+            Text("0", fontSize = 18.sp)
+            Text("25", fontSize = 18.sp)
+        }
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Скидка:",
+                fontSize = 20.sp
+            )
+
+            listOf(3, 5, 7, 10).forEach { percent ->
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    RadioButton(
+                        selected = discount == percent,
+                        onClick = null
+                    )
+
+                    Text(
+                        text = "$percent%",
+                        fontSize = 18.sp
+                    )
+                }
+            }
         }
     }
 }
