@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lab4.ui.theme.Lab4Theme
 import java.util.Locale
+import androidx.compose.material3.MaterialTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -134,10 +135,6 @@ fun TipCalculator(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(
-            text = "Размер скидки: $discount%"
-        )
-
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
@@ -212,8 +209,9 @@ fun TipCalculator(modifier: Modifier = Modifier) {
         Text(
             text = "Итого к оплате: ${
                 String.format(Locale.getDefault(), "%.2f", total)
-            }",
-            fontSize = 20.sp
+            } ₽",
+            fontSize = 20.sp,
+            style = MaterialTheme.typography.titleMedium
         )
     }
 }
