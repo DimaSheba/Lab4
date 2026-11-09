@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.*
@@ -46,6 +47,7 @@ class MainActivity : ComponentActivity() {
 fun TipCalculator(modifier: Modifier = Modifier) {
     var orderAmount by remember { mutableStateOf("") }
     var dishesCount by remember { mutableStateOf("") }
+    var tipPercent by remember { mutableFloatStateOf(0f) }
 
     val dishes = dishesCount.toIntOrNull() ?: 0
 
@@ -126,5 +128,27 @@ fun TipCalculator(modifier: Modifier = Modifier) {
         Text(
             text = "Размер скидки: $discount%"
         )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text(
+            text = "Чаевые: ${tipPercent.toInt()}%"
+        )
+
+        Slider(
+            value = tipPercent,
+            onValueChange = { tipPercent = it },
+            valueRange = 0f..25f,
+            steps = 24,
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text("0")
+            Text("25")
+        }
     }
 }
