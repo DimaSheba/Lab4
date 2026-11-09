@@ -47,6 +47,16 @@ fun TipCalculator(modifier: Modifier = Modifier) {
     var orderAmount by remember { mutableStateOf("") }
     var dishesCount by remember { mutableStateOf("") }
 
+    val dishes = dishesCount.toIntOrNull() ?: 0
+
+    val discount = when {
+        dishes <= 0 -> 0
+        dishes <= 2 -> 3
+        dishes <= 5 -> 5
+        dishes <= 10 -> 7
+        else -> 10
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -110,5 +120,11 @@ fun TipCalculator(modifier: Modifier = Modifier) {
                 }
             )
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = "Размер скидки: $discount%"
+        )
     }
 }
