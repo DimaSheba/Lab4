@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
@@ -44,6 +45,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun TipCalculator(modifier: Modifier = Modifier) {
     var orderAmount by remember { mutableStateOf("") }
+    var dishesCount by remember { mutableStateOf("") }
 
     Column(
         modifier = modifier
@@ -72,6 +74,36 @@ fun TipCalculator(modifier: Modifier = Modifier) {
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal
+                ),
+                placeholder = {
+                    Text("0")
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(text = "Количество блюд:")
+
+            Spacer(modifier = Modifier.width(8.dp))
+
+            TextField(
+                value = dishesCount,
+                onValueChange = { value ->
+                    if (value.isEmpty() ||
+                        value.all { it.isDigit() }
+                    ) {
+                        dishesCount = value
+                    }
+                },
+                modifier = Modifier.weight(1f),
+                singleLine = true,
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number
                 ),
                 placeholder = {
                     Text("0")
